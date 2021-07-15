@@ -1,13 +1,17 @@
 <div style="display: flex;justify-content: center;padding: 2rem 0px;">
-  <div style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem; width: 80vw;margin: 0 auto;">
-    <h3>Form Example</h3>
-    <div cfg-form [CfgForm]="form"></div>
-  </div>
+    <div style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem; width: 80vw;margin: 0 auto;">
+        <h3>Form Example</h3>
+        <div cfg-form [CfgForm]="form"></div>
+    </div>
 </div>
 <div style="display: flex;justify-content: center;padding: 2rem 0px;">
-  <div
-    style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem;display: inline-block;margin: 0 auto;max-width: 100%;overflow: auto;">
-    <h3>Value</h3>
-    <pre>{{ form.getValue() | json }}</pre>
-  </div>
+    <div style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem;display: inline-block;margin: 0 auto;max-width: 100%;overflow: auto;">
+        <h3>Code</h3>
+        <pre>{{ exampleCode }}</pre>
+    </div>
+    <div style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem;display: inline-block;margin: 0 auto;max-width: 100%;overflow: auto;">
+        <h3>Value</h3>
+        <pre>{{ form.getValue() | json }}</pre>
+    </div>
 </div>
+

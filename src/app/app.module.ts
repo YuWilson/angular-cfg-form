@@ -1,15 +1,20 @@
-import { NgModule } from '@angular/core';
+import { CfgFormModule } from './cfg-form/cfg-form.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
-import { CfgFormModule } from './cfg-form/cfg-form.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, BrowserAnimationsModule, CfgFormModule],
-  declarations: [AppComponent, HelloComponent],
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    CfgFormModule,
+    BrowserAnimationsModule,
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
