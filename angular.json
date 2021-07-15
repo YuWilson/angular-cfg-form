@@ -1,5 +1,5 @@
 {
-  "$schema": "./turbo_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
     "analytics": "bbc8dbb5-c023-44a2-ab10-1b1cf9191599"
   },
