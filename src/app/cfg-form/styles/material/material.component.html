@@ -158,7 +158,7 @@
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
                 <button mat-icon-button matPrefix type="button" (click)="finput.click()"> <mat-icon>attach_file</mat-icon> </button>
-                <input type="text" [formControl]="input" matInput [value]="input.value" readonly>
+                <input type="text" [formControl]="input" matInput [value]="input.value" readonly class="file-input">
                 <ng-container *ngIf="input?.valid && i.hint">
                     <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
                 </ng-container>

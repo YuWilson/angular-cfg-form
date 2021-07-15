@@ -4,14 +4,21 @@
         <div cfg-form [CfgForm]="form"></div>
     </div>
 </div>
-<div style="display: flex;justify-content: center;padding: 2rem 0px;">
-    <div style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem;display: inline-block;margin: 0 auto;max-width: 100%;overflow: auto;">
-        <h3>Code</h3>
-        <pre>{{ exampleCode }}</pre>
-    </div>
-    <div style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem;display: inline-block;margin: 0 auto;max-width: 100%;overflow: auto;">
+<div style="display: flex;justify-content: center;padding: 2rem 0px;flex-wrap: wrap;">
+    <div
+        style="border: 1px solid gray;padding: 1rem; border-radius: 0.5rem;display: inline-block;margin: 0 auto;max-width: 100%;overflow: auto;">
         <h3>Value</h3>
         <pre>{{ form.getValue() | json }}</pre>
+        <div *ngIf="form.getValue().avatar"
+            style="border-bottom: 1px solid rgba(0, 0, 0, 0.15);border-top: 1px solid rgba(0, 0, 0, 0.15);">
+
+            <h3>Files (Avatar input files)</h3>
+
+            <div *ngFor="let f of form.getValue().avatar"
+                style="padding: 16px 16px 16px 0px;border-top: 1px solid rgba(0, 0, 0, 0.15)">
+                {{ f.name }}
+            </div>
+
+        </div>
     </div>
 </div>
-
