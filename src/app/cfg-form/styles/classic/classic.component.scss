@@ -1,0 +1,81 @@
+:host.classic-input-wrapper
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.classic-input-label
+{
+    font-weight: 500;
+    color: rgba(64, 64, 64);
+    padding-bottom: 0.5rem;
+}
+
+.classic-input-hint
+{
+    font-weight: 300;
+    font-size: small;
+    color: rgba(50, 50, 70, 0.6);
+}
+
+.classic-input-err-label
+{
+    color: red;
+    font-size: small;
+}
+
+.classic-input
+{
+    border-radius: 0.25rem;
+    padding: 11px 16px;
+    background-color: #FFF;
+    border: 1px solid lightgray;
+    font-size: 1rem;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.file-input
+{
+    display: flex;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.file-input input
+{
+    border: none;
+    font-size: 1rem;
+    width: auto;
+    min-width: 0px;
+    padding: 8px 16px 8px 0px;
+    margin: 0;
+    flex: 1 1 auto;
+    text-overflow: ellipsis;
+}
+
+.checkbox-input,
+.radio-input
+{
+    --min-width: 150px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
+}
+
+.date-input
+{
+    display: flex;
+    padding: 0px;
+    box-sizing: border-box;
+
+    input
+    {
+        border: none;
+        font-size: 1rem;
+        width: auto;
+        min-width: 0px;
+        padding: 8px 0px 8px 16px;
+        margin: 0;
+        flex: 1 1 auto;
+    }
+}

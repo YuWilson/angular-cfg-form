@@ -1,0 +1,19 @@
+<ng-container *ngFor="let i of CfgForm.inputs">
+    <div class="cfg-form-col-{{ getCol(i) }}" [ngStyle]="{
+        'min-width': CfgForm.colMinWidth,
+        'flex': i.disableAutoScale ? '0 0 auto' : ''
+    }">
+        <ng-container *ngIf="CfgForm.style == 'classic'">
+            <cfg-form-classic-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i"></cfg-form-classic-input>
+        </ng-container>
+        <ng-container *ngIf="CfgForm.style == 'float'">
+            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i"></cfg-form-material-input>
+        </ng-container>
+        <ng-container *ngIf="CfgForm.style == 'fill'">
+            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i" appearance="fill"></cfg-form-material-input>
+        </ng-container>
+        <ng-container *ngIf="CfgForm.style == 'outline'">
+            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i" appearance="outline"></cfg-form-material-input>
+        </ng-container>
+    </div>
+</ng-container>
