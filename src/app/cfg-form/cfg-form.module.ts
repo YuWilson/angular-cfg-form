@@ -18,12 +18,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FORM_DEFAULT_STYLE } from './cfg-form.type';
 import { MobileComponent } from './styles/mobile/mobile.component';
 import { CfgFormErrorMessagePipe } from './pipes/cfg-form-error-message.pipe';
+import { CfgFormInputDefDirective, CfgFormLabelDefDirective, CfgFormErrorLabelDefDirective, CfgFormHintLabelDefDirective, CfgFormFieldDefDirective } from './directives/cfg-form-input-template.directive';
 
 const components = [CfgFormComponent, ClassicComponent, MaterialComponent, MobileComponent];
 const pipes = [CfgFormErrorMessagePipe];
+const directives = [CfgFormInputDefDirective, CfgFormLabelDefDirective, CfgFormErrorLabelDefDirective, CfgFormHintLabelDefDirective, CfgFormFieldDefDirective]
 
 @NgModule({
-    declarations: [...components, ...pipes],
+    declarations: [...components, ...pipes, ...directives],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -38,7 +40,7 @@ const pipes = [CfgFormErrorMessagePipe];
         MatFormFieldModule,
         MatRippleModule,
     ],
-    exports: [...components],
+    exports: [...components, ...directives],
     providers: [
         { provide: FORM_DEFAULT_STYLE, useValue: 'classic' },
     ]

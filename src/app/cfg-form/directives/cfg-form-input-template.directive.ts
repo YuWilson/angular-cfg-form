@@ -46,7 +46,7 @@ export class CfgFormHintLabelDefDirective
 @Directive({ selector: '[cfg-form-field]' })
 export class CfgFormFieldDefDirective {
 
-    @Input('cfg-form-input')
+    @Input('cfg-form-field')
     get formInputDef(): string { return this._name; }
     set formInputDef(name: string) { this._setNameInput(name); }
 

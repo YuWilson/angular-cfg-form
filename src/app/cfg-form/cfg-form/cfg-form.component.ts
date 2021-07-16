@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { CfgFormFieldDefDirective } from '../directives/cfg-form-input-template.directive';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Inject, Input, OnInit, TemplateRef, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, HostBinding, Inject, Input, OnInit, TemplateRef } from '@angular/core';
 import { CfgForm, FormInput, FormInputStyles, FORM_DEFAULT_STYLE } from '../cfg-form.type';
 import { QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ export class CfgFormComponent implements OnInit {
 
     @Input('CfgForm') CfgForm!: CfgForm;
 
-    @ViewChildren(CfgFormFieldDefDirective) fieldDefs!: QueryList<CfgFormFieldDefDirective>;
+    @ContentChildren(CfgFormFieldDefDirective) fieldDefs!: QueryList<CfgFormFieldDefDirective>;
 
     @HostBinding('style') get getStyle() {
         return {

@@ -4,19 +4,19 @@
         'flex': i.disableAutoScale ? '0 0 auto' : ''
     }">
         <ng-container *ngIf="CfgForm.style == 'classic'">
-            <cfg-form-classic-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i"></cfg-form-classic-input>
+            <cfg-form-classic-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [template-def]="getFieldDef(i.name)" [config]="i"></cfg-form-classic-input>
         </ng-container>
         <ng-container *ngIf="CfgForm.style == 'float'">
-            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i"></cfg-form-material-input>
+            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [template-def]="getFieldDef(i.name)" [config]="i"></cfg-form-material-input>
         </ng-container>
         <ng-container *ngIf="CfgForm.style == 'fill'">
-            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i" appearance="fill"></cfg-form-material-input>
+            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [template-def]="getFieldDef(i.name)" [config]="i" appearance="fill"></cfg-form-material-input>
         </ng-container>
         <ng-container *ngIf="CfgForm.style == 'outline'">
-            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i" appearance="outline"></cfg-form-material-input>
+            <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [template-def]="getFieldDef(i.name)" [config]="i" appearance="outline"></cfg-form-material-input>
         </ng-container>
         <ng-container *ngIf="CfgForm.style == 'mobile'">
-            <cfg-form-mobile-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i" appearance="outline"></cfg-form-mobile-input>
+            <cfg-form-mobile-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [template-def]="getFieldDef(i.name)" [config]="i" appearance="outline"></cfg-form-mobile-input>
         </ng-container>
     </div>
 </ng-container>

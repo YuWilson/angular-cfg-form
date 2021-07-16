@@ -216,6 +216,6 @@
 
 </ng-container>
 
-<ng-template #defaultLabelTemplate let-config="config">{{ config.label }}</ng-template>
-<ng-template #defaultHintTemplate let-config="config">{{ config.hint }}</ng-template>
-<ng-template #defaultErrorTemplate let-config="config">{{ input?.errors | CfgFormErrorMessage }}</ng-template>
+<ng-template #defaultLabelTemplate let-config>{{ config.label }}</ng-template>
+<ng-template #defaultHintTemplate let-config>{{ config.hint }}</ng-template>
+<ng-template #defaultErrorTemplate let-config>{{ input?.errors | CfgFormErrorMessage }}</ng-template>

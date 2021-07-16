@@ -20,7 +20,7 @@ export class MobileComponent implements OnInit {
 
     @Input('config') i!: FormInputInterface;
 
-    @Input('template-def') templateDef!: CfgFormFieldDefDirective;
+    @Input('template-def') templateDef!: CfgFormFieldDefDirective | null;
 
     @HostBinding('class') get getClassList() {
         const vars: any = {
@@ -45,9 +45,9 @@ export class MobileComponent implements OnInit {
     ngOnInit()
     {
         this.TemplateVariables = {
-            $implicit: this.form,
+            $implicit: this.i,
             input: this.input,
-            config: this.i,
+            form: this.form,
         };
         if( this.input )
         {
