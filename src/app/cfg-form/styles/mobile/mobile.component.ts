@@ -9,9 +9,6 @@ import { CfgFormFieldDefDirective } from '../../directives/cfg-form-input-templa
     selector: 'cfg-form-mobile-input',
     templateUrl: './mobile.component.html',
     styleUrls: ['./mobile.component.scss'],
-    host: {
-        'class': 'mobile-input-wrapper'
-    }
 })
 export class MobileComponent implements OnInit {
 
@@ -26,13 +23,15 @@ export class MobileComponent implements OnInit {
     @Input('template-def') templateDef!: CfgFormFieldDefDirective;
 
     @HostBinding('class') get getClassList() {
-        return {
+        const vars: any = {
+            'mobile-input-wrapper': true,
             'radio-input': this.i.type == 'radio',
             'checkbox-input': this.i.type == 'checkbox',
             'file-input': this.i.type == 'file',
             'date-input': this.i.type == 'date',
             'ng-invalid': this.input?.invalid && this.input.touched,
-        }
+        };
+        return Object.keys(vars).map( key => vars[key] ? key : '' ).filter( cls => !!cls ).join(' ');
     }
 
     TemplateVariables: any = {}

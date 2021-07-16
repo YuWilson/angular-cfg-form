@@ -9,9 +9,6 @@ import { Subscription } from 'rxjs';
     selector: 'cfg-form, [cfg-form]',
     templateUrl: './cfg-form.component.html',
     styleUrls: ['./cfg-form.component.scss'],
-    host: {
-        'class': 'cfg-form'
-    },
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CfgFormComponent implements OnInit {
@@ -27,9 +24,11 @@ export class CfgFormComponent implements OnInit {
     }
 
     @HostBinding('class') get getClassName() {
-        return {
+        const vars: any = {
+            'cfg-form': true,
             'mobile-style': this.CfgForm.style == 'mobile',
-        }
+        };
+        return Object.keys(vars).map( key => vars[key] ? key : '' ).filter( cls => !!cls ).join(' ');
     }
 
     private subscriptions: Subscription[] = [];

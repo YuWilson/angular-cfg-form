@@ -2,7 +2,7 @@ import { CfgFormFieldDefDirective } from '../../directives/cfg-form-input-templa
 import { FormInput, FormInputInterface, FormSelectOption, CfgForm } from '../../cfg-form.type';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Subscription } from 'rxjs';
 
@@ -10,9 +10,6 @@ import { Subscription } from 'rxjs';
     selector: 'cfg-form-classic-input',
     templateUrl: './classic.component.html',
     styleUrls: ['./classic.component.scss'],
-    host: {
-        'class': 'classic-input-wrapper',
-    },
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClassicComponent implements OnInit {
@@ -32,6 +29,13 @@ export class ClassicComponent implements OnInit {
     private _checkbox_selected: Array<unknown> = [];
 
     private subscriptions: Subscription[] = [];
+
+    @HostBinding('class') get getClassList() {
+        const vars: any = {
+            'classic-input-wrapper': true,
+        };
+        return Object.keys(vars).map( key => vars[key] ? key : '' ).filter( cls => !!cls ).join(' ');
+    }
 
     constructor(private changeDet: ChangeDetectorRef) { }
 
