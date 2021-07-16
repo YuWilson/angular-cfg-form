@@ -1,5 +1,6 @@
-import { CfgForm, TextInput, PasswordInput, FileInput, CheckboxInput, SelectInput, TextareaInput, NumberInput, DateInput, TimeInput, RadioInput } from './cfg-form/cfg-form.type';
-import { Component } from '@angular/core';
+import { CfgForm, TextInput, PasswordInput, FileInput, CheckboxInput, SelectInput, TextareaInput, NumberInput, DateInput, TimeInput, RadioInput, FORM_DEFAULT_STYLE, FormInputStyles } from './cfg-form/cfg-form.type';
+import { Component, Inject } from '@angular/core';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,6 @@ export class AppComponent {
     title = 'app-form';
 
     form: CfgForm = new CfgForm({
-        style: 'classic',
         cols: 4,
         colMinWidth: '200px',
         inputs: [
@@ -18,21 +18,25 @@ export class AppComponent {
                 disableReset: true,
                 disableAutoScale: true,
                 defaultValue: 'classic',
+                validators: [Validators.required],
+                hint: 'test hint',
                 options: [
                     { value: 'classic', label: 'Classic' },
                     { value: 'float', label: 'Material' },
                     { value: 'fill', label: 'Material Fill' },
                     { value: 'outline', label: 'Material Outline' },
+                    { value: 'mobile', label: 'Mobile' },
                 ]
             }),
-            new TextInput({ name: 'name', label: 'User Name', cols: 4 }),
-            new TextInput({ name: 'account', label: 'User Account', cols: 2 }),
-            new NumberInput({ name: 'age', label: 'User Age', defaultValue: 16, cols: 2 }),
-            new PasswordInput({ name: 'password', label: 'User Password', cols: 2 }),
-            new DateInput({ name: 'birthday', label: 'User Birthday', cols: 1, min: new Date() }),
-            new TimeInput({ name: 'work_start_time', label: 'User Work Start Time', cols: 1, defaultValue: "01:22" }),
+            new TextInput({ name: 'name', label: 'User Name', cols: 4, validators: [ Validators.required ], hint: 'test-hint', }),
+            new TextInput({ name: 'account', label: 'User Account', cols: 2, validators: [ Validators.required ], hint: 'test-hint', }),
+            new NumberInput({ name: 'age', label: 'User Age', defaultValue: 16, cols: 2, validators: [ Validators.required, Validators.min(10), Validators.max(30) ], hint: 'test-hint' }),
+            new PasswordInput({ name: 'password', label: 'User Password', cols: 2, validators: [ Validators.required ], hint: 'test-hint', }),
+            new DateInput({ name: 'birthday', label: 'User Birthday', cols: 1, min: new Date(), validators: [ Validators.required ], hint: 'test-hint', }),
+            new TimeInput({ name: 'work_start_time', label: 'User Work Start Time', cols: 1, defaultValue: "01:22", validators: [ Validators.required ], hint: 'test-hint', }),
             new CheckboxInput({ name: 'role', label: 'Role', cols: 4,
                 minWidth: '200px',
+                validators: [ Validators.required ], hint: 'test-hint',
                 options: [
                     { value: 'admin-user', label: 'Admin' },
                     { value: 'manager', label: 'Manager' },
@@ -41,8 +45,9 @@ export class AppComponent {
                     { value: 'it', label: 'IT' },
                 ]
             }),
-            new FileInput({ name: 'avatar', label: 'User Avatar', cols: 1, accept: '.png,.jpeg,.jpg', multiple: true }),
-            new SelectInput({ name: 'select', label: 'Select', cols: 1,
+            new FileInput({ name: 'avatar', label: 'User Avatar', cols: 1, accept: '.png,.jpeg,.jpg', multiple: true, hint: 'Can select multiple file.', validators: [ Validators.required ] }),
+            new SelectInput({ name: 'select', label: 'Select', cols: 1, hint: 'test hint',
+                validators: [ Validators.required ],
                 options: [
                     { value: 'admin-user', label: 'Admin' },
                     { value: 'manager', label: 'Manager' },
@@ -53,17 +58,22 @@ export class AppComponent {
             }),
             new RadioInput({ name: 'sex', label: 'User Gender', cols: 1,
                 minWidth: '50%',
+                validators: [ Validators.required ], hint: 'test-hint',
                 options: [
                     { value: 0, label: 'Woman' },
                     { value: 1, label: 'Man' },
                 ]
             }),
-            new TextareaInput({ name: 'description', label: 'User Description', cols: 4 }),
+            new TextareaInput({ name: 'description', label: 'User Description', cols: 4, validators: [ Validators.required ], hint: 'test-hint', }),
         ]
     });
 
+    constructor(@Inject(FORM_DEFAULT_STYLE) private defaultStyle: FormInputStyles) {}
+
     ngOnInit()
     {
+        this.form.style = this.defaultStyle;
+        this.form.form.get('style')?.patchValue( this.defaultStyle );
         this.form.form.valueChanges.subscribe(() => {
             this.form.style = this.form.form.value.style;
         });

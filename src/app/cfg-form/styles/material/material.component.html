@@ -10,14 +10,11 @@
                 <mat-label>
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
-                <input [name]="i.name" matInput type="text" [formControl]="input" [value]="input.value">
-                <ng-container *ngIf="input?.valid && i.hint">
-                    <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
-                </ng-container>
-                <ng-container *ngIf="input?.errors">
-                    <mat-error><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
-                </ng-container>
+                <input [name]="i.name" matInput type="text" [formControl]="input" [value]="input.value" [required]="i.required" [readonly]="i.readonly">
+                <mat-hint *ngIf="i.hint"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
+                <mat-error *ngIf="input?.errors"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
             </mat-form-field>
+
         </ng-container>
 
         <!-- Password -->
@@ -27,13 +24,9 @@
                 <mat-label>
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
-                <input [name]="i.name" matInput type="password" [formControl]="input" [value]="input.value">
-                <ng-container *ngIf="input?.valid && i.hint">
-                    <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
-                </ng-container>
-                <ng-container *ngIf="input?.errors">
-                    <mat-error><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
-                </ng-container>
+                <input [name]="i.name" matInput type="password" [formControl]="input" [value]="input.value" [required]="i.required" [readonly]="i.readonly">
+                <mat-hint *ngIf="i.hint"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
+                <mat-error *ngIf="input?.errors"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
             </mat-form-field>
 
         </ng-container>
@@ -45,13 +38,10 @@
                 <mat-label>
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
-                <input [name]="i.name" matInput type="number" [formControl]="input" [value]="input.value" [min]="i.min" [max]="i.max">
-                <ng-container *ngIf="input?.valid && i.hint">
-                    <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
-                </ng-container>
-                <ng-container *ngIf="input?.errors">
-                    <mat-error><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
-                </ng-container>
+                <input [name]="i.name" matInput type="number" [formControl]="input" [value]="input.value" [min]="i.min" [max]="i.max" [required]="i.required" [readonly]="i.readonly">
+
+                <mat-hint *ngIf="i.hint"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
+                <mat-error *ngIf="input?.errors"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
             </mat-form-field>
 
         </ng-container>
@@ -63,19 +53,17 @@
                 <mat-label>
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
-                <mat-select [formControl]="input" [value]="input.value" [attr.name]="i.name">
+                <mat-select [formControl]="input" [value]="input.value" [attr.name]="i.name" [required]="i.required || i.readonly">
                     <mat-option disabled style="border-bottom: 1px solid rgba(0, 0, 0, 0.15);position: sticky;z-index: 1;top: 0;background-color: inherit;">
                         <input type="text" matInput #f (keyup)="handleFilterOption(f.value)" autocomplete="off" style="border: none;font-size: 1rem;width: 100%;" placeholder="Filter...">
                     </mat-option>
                     <mat-option *ngIf="!i.multiple && input.value && !i.disableReset" [value]="null"></mat-option>
                     <mat-option *ngFor="let opt of i.options" [ngStyle]="{'display': opt.hidden ? 'none' : ''}" [value]="opt.value">{{ opt.label }}</mat-option>
                 </mat-select>
-                <ng-container *ngIf="input?.valid && i.hint">
-                    <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
-                </ng-container>
-                <ng-container *ngIf="input?.errors">
-                    <mat-error><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
-                </ng-container>
+
+                <mat-hint *ngIf="i.hint"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
+                <mat-error *ngIf="input?.errors"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
+
             </mat-form-field>
 
         </ng-container>
@@ -87,13 +75,10 @@
                 <mat-label>
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
-                <textarea [name]="i.name" matInput [formControl]="input" [value]="input.value" rows="5"></textarea>
-                <ng-container *ngIf="input?.valid && i.hint">
-                    <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
-                </ng-container>
-                <ng-container *ngIf="input?.errors">
-                    <mat-error><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
-                </ng-container>
+                <textarea [name]="i.name" matInput [formControl]="input" [value]="input.value" rows="5" [required]="i.required" [readonly]="i.readonly"></textarea>
+                <mat-hint *ngIf="i.hint"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
+                <mat-error *ngIf="input?.errors"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
+
             </mat-form-field>
 
         </ng-container>
@@ -101,52 +86,54 @@
         <!-- Radio -->
         <ng-container *ngSwitchCase="'radio'">
 
-            <div class="fake-material-form-field {{ appearance }}">
-                <div class="fake-mat-input-label">
-                    <label>
-                        <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
-                    </label>
+            <div class="fake-material-form-field-layout" tabindex="0" [ngClass]="{required: i.required, invalid: input.touched && input.invalid}" (focusout)="input.markAsTouched()">
+                <div class="fake-material-form-field {{ appearance }}">
+                    <div class="fake-mat-input-label">
+                        <label>
+                            <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
+                        </label>
+                    </div>
+
+                    <mat-radio-group class="radio-input" [formControl]="input" [value]="input.value" [style.--min-width]="i.minWidth" [disabled]="i.disabled">
+                        <mat-radio-button *ngFor="let opt of i.options" color="primary" [value]="opt.value">{{ opt.label }}</mat-radio-button>
+                    </mat-radio-group>
                 </div>
 
-                <mat-radio-group class="radio-input" [formControl]="input" [value]="input.value" [style.--min-width]="i.minWidth">
-                    <mat-radio-button *ngFor="let opt of i.options" color="primary" [value]="opt.value">{{ opt.label }}</mat-radio-button>
-                </mat-radio-group>
+                <!-- Hint & Error Message -->
+                <ng-container *ngIf="!(input.touched && !input.valid) && i.hint">
+                    <span class="fake-mat-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+                </ng-container>
+                <ng-container *ngIf="input.touched && input.errors">
+                    <span class="fake-mat-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+                </ng-container>
             </div>
-
-            <ng-container *ngIf="input?.valid && i.hint">
-                <span class="fake-mat-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
-            </ng-container>
-
-            <ng-container *ngIf="input?.errors">
-                <span class="fake-mat-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
-            </ng-container>
 
         </ng-container>
 
         <!-- Checkbox -->
         <ng-container *ngSwitchCase="'checkbox'">
 
-            <div class="fake-material-form-field {{ appearance }}">
-                <div class="fake-mat-input-label">
-                    <label>
-                        <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
-                    </label>
+            <div class="fake-material-form-field-layout" tabindex="0" [ngClass]="{required: i.required, invalid: input.touched && input.invalid}" (focusout)="input.markAsTouched()">
+                <div class="fake-material-form-field {{ appearance }}">
+                    <div class="fake-mat-input-label">
+                        <label>
+                            <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-input" [style.--min-width]="i.minWidth">
+                        <mat-checkbox *ngFor="let opt of i.options" color="primary" [checked]="isChecked(opt)" (change)="handleCheckboxChange(opt.value, $event)" [disabled]="i.disabled">{{ opt.label }}</mat-checkbox>
+                    </div>
                 </div>
 
-                <div class="checkbox-input" [style.--min-width]="i.minWidth">
-
-                    <mat-checkbox *ngFor="let opt of i.options" color="primary" [checked]="isChecked(opt)" (change)="handleCheckboxChange(opt.value, $event)">{{ opt.label }}</mat-checkbox>
-
-                </div>
+                <!-- Hint & Error Message -->
+                <ng-container *ngIf="!(input.touched && !input.valid) && i.hint">
+                    <span class="fake-mat-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+                </ng-container>
+                <ng-container *ngIf="input.touched && input.errors">
+                    <span class="fake-mat-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+                </ng-container>
             </div>
-
-            <ng-container *ngIf="input?.valid && i.hint">
-                <span class="fake-mat-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
-            </ng-container>
-
-            <ng-container *ngIf="input?.errors">
-                <span class="fake-mat-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
-            </ng-container>
 
         </ng-container>
 
@@ -158,13 +145,9 @@
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
                 <button mat-icon-button matPrefix type="button" (click)="finput.click()"> <mat-icon>attach_file</mat-icon> </button>
-                <input type="text" [formControl]="input" matInput [value]="input.value" readonly class="file-input">
-                <ng-container *ngIf="input?.valid && i.hint">
-                    <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
-                </ng-container>
-                <ng-container *ngIf="input?.errors">
-                    <mat-error><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
-                </ng-container>
+                <input type="text" [formControl]="input" matInput [value]="input.value" readonly [required]="i.required">
+                <mat-hint *ngIf="i.hint"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
+                <mat-error *ngIf="input?.errors"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
 
                 <input [name]="i.name" type="file" [multiple]="i.multiple" [accept]="i.accept" readonly style="display: none;" #finput (change)="handleFileSelect(i, finput.files)">
             </mat-form-field>
@@ -178,15 +161,11 @@
                 <mat-label>
                     <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
                 </mat-label>
-                <input matInput readonly [matDatepicker]="picker" [formControl]="input" [min]="i.minDate" [max]="i.maxDate">
+                <input matInput readonly [matDatepicker]="picker" [formControl]="input" [min]="i.minDate" [max]="i.maxDate" [required]="i.required">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                <ng-container *ngIf="input?.valid && i.hint">
-                    <mat-hint><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
-                </ng-container>
-                <ng-container *ngIf="input?.errors">
-                    <mat-error><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
-                </ng-container>
+                <mat-hint *ngIf="i.hint"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-hint>
+                <mat-error *ngIf="input?.errors"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></mat-error>
             </mat-form-field>
 
         </ng-container>
@@ -194,32 +173,35 @@
         <!-- Time Input -->
         <ng-container *ngSwitchCase="'time'">
 
-            <div class="fake-material-form-field {{ appearance }}">
-                <div class="fake-mat-input-label">
-                    <label>
-                        <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
-                    </label>
+            <div class="fake-material-form-field-layout" tabindex="0" [ngClass]="{required: i.required, invalid: input.touched && input.invalid}" (focusout)="input.markAsTouched()">
+                <div class="fake-material-form-field {{ appearance }}">
+                    <div class="fake-mat-input-label">
+                        <label>
+                            <ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container>
+                        </label>
+                    </div>
+
+                    <div>
+                        <mat-select #hour (selectionChange)="handleTimeChange(hour.value, minute.value)" placeholder="Hour" [attr.name]="i.name" style="width: 64px;text-align: center;" [value]="i.defaultValue?.hour">
+                            <mat-option *ngFor="let opt of i.hourOptions" [value]="opt.value">{{ opt.label }}</mat-option>
+                        </mat-select>
+
+                        <span style="display: inline-block;margin: 0px 8px">:</span>
+
+                        <mat-select #minute (selectionChange)="handleTimeChange(hour.value, minute.value)" placeholder="Minute" [attr.name]="i.name" style="width: 64px;text-align: center;" [value]="i.defaultValue?.minute">
+                            <mat-option *ngFor="let opt of i.minuteOptions" [value]="opt.value">{{ opt.label }}</mat-option>
+                        </mat-select>
+                    </div>
                 </div>
 
-                <div>
-                    <mat-select #hour (selectionChange)="handleTimeChange(hour.value, minute.value)" placeholder="Hour" [attr.name]="i.name" style="width: 64px;text-align: center;" [value]="i.defaultValue?.hour">
-                        <mat-option *ngFor="let opt of i.hourOptions" [value]="opt.value">{{ opt.label }}</mat-option>
-                    </mat-select>
-
-                    <span style="display: inline-block;margin: 0px 8px">:</span>
-
-                    <mat-select #minute (selectionChange)="handleTimeChange(hour.value, minute.value)" placeholder="Minute" [attr.name]="i.name" style="width: 64px;text-align: center;" [value]="i.defaultValue?.minute">
-                        <mat-option *ngFor="let opt of i.minuteOptions" [value]="opt.value">{{ opt.label }}</mat-option>
-                    </mat-select>
-                </div>
+                <!-- Hint & Error Message -->
+                <ng-container *ngIf="!(input.touched && !input.valid) && i.hint">
+                    <span class="fake-mat-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+                </ng-container>
+                <ng-container *ngIf="input.touched && input.errors">
+                    <span class="fake-mat-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+                </ng-container>
             </div>
-            <ng-container *ngIf="input?.valid && i.hint">
-                <span class="fake-mat-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
-            </ng-container>
-
-            <ng-container *ngIf="input?.errors">
-                <span class="fake-mat-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
-            </ng-container>
 
         </ng-container>
 
@@ -236,4 +218,4 @@
 
 <ng-template #defaultLabelTemplate let-config="config">{{ config.label }}</ng-template>
 <ng-template #defaultHintTemplate let-config="config">{{ config.hint }}</ng-template>
-<ng-template #defaultErrorTemplate let-config="config">Has error</ng-template>
+<ng-template #defaultErrorTemplate let-config="config">{{ input?.errors | CfgFormErrorMessage }}</ng-template>

@@ -15,5 +15,8 @@
         <ng-container *ngIf="CfgForm.style == 'outline'">
             <cfg-form-material-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i" appearance="outline"></cfg-form-material-input>
         </ng-container>
+        <ng-container *ngIf="CfgForm.style == 'mobile'">
+            <cfg-form-mobile-input [CfgForm]="CfgForm" [form]="CfgForm.form" [input]="getFormControl(i)" [config]="i" appearance="outline"></cfg-form-mobile-input>
+        </ng-container>
     </div>
 </ng-container>

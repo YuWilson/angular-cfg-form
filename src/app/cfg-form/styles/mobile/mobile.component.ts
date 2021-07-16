@@ -1,19 +1,19 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Subscription } from 'rxjs';
-import { CfgFormFieldDefDirective } from '../../directives/cfg-form-input-template.directive';
 import { CfgForm, FormInputInterface, FormSelectOption, FormInput } from '../../cfg-form.type';
+import { CfgFormFieldDefDirective } from '../../directives/cfg-form-input-template.directive';
 
 @Component({
-  selector: 'cfg-form-material-input',
-  templateUrl: './material.component.html',
-  styleUrls: ['./material.component.scss']
+    selector: 'cfg-form-mobile-input',
+    templateUrl: './mobile.component.html',
+    styleUrls: ['./mobile.component.scss'],
+    host: {
+        'class': 'mobile-input-wrapper'
+    }
 })
-export class MaterialComponent implements OnInit {
-
-    @Input() appearance: MatFormFieldAppearance = 'standard';
+export class MobileComponent implements OnInit {
 
     @Input() CfgForm!: CfgForm;
 
@@ -24,6 +24,16 @@ export class MaterialComponent implements OnInit {
     @Input('config') i!: FormInputInterface;
 
     @Input('template-def') templateDef!: CfgFormFieldDefDirective;
+
+    @HostBinding('class') get getClassList() {
+        return {
+            'radio-input': this.i.type == 'radio',
+            'checkbox-input': this.i.type == 'checkbox',
+            'file-input': this.i.type == 'file',
+            'date-input': this.i.type == 'date',
+            'ng-invalid': this.input?.invalid && this.input.touched,
+        }
+    }
 
     TemplateVariables: any = {}
 
@@ -74,7 +84,7 @@ export class MaterialComponent implements OnInit {
         return this._checkbox_selected.indexOf( opt.value ) >= 0;
     }
 
-    handleTimeChange(hour: number, minute: number)
+    handleTimeChange(hour: string, minute: string)
     {
         this.input?.patchValue( (''+hour).padStart(2, '0') + ':' + (''+minute).padStart(2, '0') );
     }

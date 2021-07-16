@@ -10,11 +10,11 @@
 
             <input [name]="i.name" matInput type="text" [formControl]="input" [value]="input.value" class="classic-input">
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -27,11 +27,11 @@
 
             <input [name]="i.name" matInput type="password" [formControl]="input" [value]="input.value" class="classic-input">
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -44,11 +44,11 @@
 
             <input [name]="i.name" matInput type="number" [formControl]="input" [value]="input.value" class="classic-input" [min]="i.min" [max]="i.max">
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -67,11 +67,11 @@
                 <mat-option *ngFor="let opt of i.options" [ngStyle]="{'display': opt.hidden ? 'none' : ''}" [value]="opt.value">{{ opt.label }}</mat-option>
             </mat-select>
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -84,11 +84,11 @@
 
             <textarea [name]="i.name" matInput [formControl]="input" [value]="input.value" class="classic-input" rows="5"></textarea>
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -103,11 +103,11 @@
                 <mat-radio-button *ngFor="let opt of i.options" color="primary" [value]="opt.value">{{ opt.label }}</mat-radio-button>
             </mat-radio-group>
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -124,11 +124,11 @@
 
             </div>
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -146,11 +146,11 @@
 
             <input [name]="i.name" type="file" [multiple]="i.multiple" [accept]="i.accept" readonly style="display: none;" #finput (change)="handleFileSelect(i, finput.files)">
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -167,11 +167,11 @@
                 <mat-datepicker #picker></mat-datepicker>
             </div>
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
@@ -196,11 +196,11 @@
 
             </div>
 
-            <ng-container *ngIf="input?.valid && i.hint">
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
                 <span class="classic-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 
-            <ng-container *ngIf="input?.errors">
+            <ng-container *ngIf="input.touched && input?.errors">
                 <span class="classic-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
             </ng-container>
 

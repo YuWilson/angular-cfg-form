@@ -9,17 +9,21 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { CfgFormComponent } from './cfg-form/cfg-form.component';
 import { ClassicComponent } from './styles/classic/classic.component';
 import { MaterialComponent } from './styles/material/material.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FORM_DEFAULT_STYLE } from './cfg-form.type';
+import { MobileComponent } from './styles/mobile/mobile.component';
+import { CfgFormErrorMessagePipe } from './pipes/cfg-form-error-message.pipe';
 
-const components = [CfgFormComponent, ClassicComponent, MaterialComponent];
+const components = [CfgFormComponent, ClassicComponent, MaterialComponent, MobileComponent];
+const pipes = [CfgFormErrorMessagePipe];
 
 @NgModule({
-    declarations: [...components],
+    declarations: [...components, ...pipes],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -32,23 +36,11 @@ const components = [CfgFormComponent, ClassicComponent, MaterialComponent];
         MatDatepickerModule,
         MatNativeDateModule,
         MatFormFieldModule,
+        MatRippleModule,
     ],
     exports: [...components],
     providers: [
-        { provide: MAT_DATE_LOCALE, useValue: 'zh-TW' },
-        { provide: MAT_DATE_FORMATS,
-          useValue: {
-            parse: {
-                dateInput: ['l', 'LL'],
-            },
-            display: {
-                dateInput: 'L',
-                monthYearLabel: 'MMM YYYY',
-                dateA11yLabel: 'LL',
-                monthYearA11yLabel: 'MMMM YYYY',
-            },
-          }
-        },
+        { provide: FORM_DEFAULT_STYLE, useValue: 'classic' },
     ]
 })
 export class CfgFormModule { }

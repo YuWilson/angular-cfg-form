@@ -1,0 +1,226 @@
+<!-- Input Templates -->
+<ng-container *ngIf="input">
+
+    <ng-container [ngSwitch]="i.type">
+
+        <!-- Text -->
+        <ng-container *ngSwitchCase="'text'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <input [name]="i.name" matInput type="text" [formControl]="input" [value]="input.value" class="mobile-input" [required]="i.required" [readonly]="i.readonly">
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Password -->
+        <ng-container *ngSwitchCase="'password'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <input [name]="i.name" matInput type="password" [formControl]="input" [value]="input.value" class="mobile-input" [required]="i.required" [readonly]="i.readonly">
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Number -->
+        <ng-container *ngSwitchCase="'number'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <input [name]="i.name" matInput type="number" [formControl]="input" [value]="input.value" class="mobile-input" [min]="i.min" [max]="i.max" [required]="i.required" [readonly]="i.readonly">
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Select -->
+        <ng-container *ngSwitchCase="'select'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <mat-select [formControl]="input" [value]="input.value" class="mobile-input" [attr.name]="i.name" [required]="i.required">
+                <mat-option disabled style="border-bottom: 1px solid rgba(0, 0, 0, 0.15);position: sticky;z-index: 1;top: 0;background-color: inherit;">
+                    <input type="text" matInput #f (keyup)="handleFilterOption(f.value)" autocomplete="off" style="border: none;font-size: 1rem;width: 100%;" placeholder="Filter...">
+                </mat-option>
+                <mat-option *ngIf="!i.multiple && input.value && !i.disableReset" [value]="null"></mat-option>
+                <mat-option *ngFor="let opt of i.options" [ngStyle]="{'display': opt.hidden ? 'none' : ''}" [value]="opt.value">{{ opt.label }}</mat-option>
+            </mat-select>
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Textarea -->
+        <ng-container *ngSwitchCase="'textarea'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <textarea [name]="i.name" matInput [formControl]="input" [value]="input.value" class="mobile-input" rows="5" [required]="i.required" [readonly]="i.readonly"></textarea>
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Radio -->
+        <ng-container *ngSwitchCase="'radio'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <mat-radio-group class="mobile-input radio-input" [formControl]="input" [value]="input.value" [style.--min-width]="i.minWidth" [required]="i.required">
+                <div *ngFor="let opt of i.options" matRipple>
+                    <mat-radio-button style="width: 100%;" color="primary" [value]="opt.value" [disableRipple]="true" labelPosition="before" [disabled]="opt.disabled || i.readonly">{{ opt.label }}</mat-radio-button>
+                </div>
+            </mat-radio-group>
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Checkbox -->
+        <ng-container *ngSwitchCase="'checkbox'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <div class="mobile-input checkbox-input" [style.--min-width]="i.minWidth">
+
+                <div *ngFor="let opt of i.options" matRipple>
+                    <mat-checkbox style="width: 100%;" color="primary" disableRipple="true" labelPosition="before" [disabled]="i.readonly || opt.disabled" [checked]="isChecked(opt)" (change)="handleCheckboxChange(opt.value, $event)">{{ opt.label }}</mat-checkbox>
+                </div>
+
+            </div>
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input?.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- File -->
+        <ng-container *ngSwitchCase="'file'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <div class="mobile-input file-input">
+                <button mat-icon-button type="button" (click)="!i.readonly && finput.click()"> <mat-icon>attach_file</mat-icon> </button>
+                <input type="text" [formControl]="input" matInput [value]="input.value" readonly>
+            </div>
+
+            <input [name]="i.name" type="file" [multiple]="i.multiple" [accept]="i.accept" readonly style="display: none;" #finput (change)="handleFileSelect(i, finput.files)">
+
+            <ng-container *ngIf="!(input.touched && input.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Date Input -->
+        <ng-container *ngSwitchCase="'date'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <div class="mobile-input date-input">
+                <input matInput readonly [matDatepicker]="picker" [formControl]="input" [min]="i.minDate" [max]="i.maxDate" [name]="i.name" [required]="i.required">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+
+            <ng-container *ngIf="!(input.touched && input?.errors) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input?.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Time Input -->
+        <ng-container *ngSwitchCase="'time'">
+
+            <div class="mobile-input-label" [ngClass]="{required: i.required}"><ng-container [ngTemplateOutlet]="templateDef?.labelDef?.template || defaultLabelTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></div>
+
+            <div>
+
+                <select #hour matNativeControl  (change)="handleTimeChange(hour.value, minute.value)" placeholder="Hour" class="mobile-input" [attr.name]="i.name" style="width: 100px;" [value]="i.defaultValue?.hour">
+                    <option *ngFor="let opt of i.hourOptions" [value]="opt.value">{{ opt.label }}</option>
+                </select>
+
+                <span style="display: inline-block;margin: 0px 8px">:</span>
+
+                <select #minute matNativeControl  (change)="handleTimeChange(hour.value, minute.value)" placeholder="Minute" class="mobile-input" [attr.name]="i.name" style="width: 100px;" [value]="i.defaultValue?.minute">
+                    <option *ngFor="let opt of i.minuteOptions" [value]="opt.value">{{ opt.label }}</option>
+                </select>
+
+            </div>
+
+            <ng-container *ngIf="(!input.invalid || !input.touched) && i.hint">
+                <span class="mobile-input-hint-label"><ng-container [ngTemplateOutlet]="templateDef?.hintLabelDef?.template || defaultHintTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+            <ng-container *ngIf="input.touched && input?.errors">
+                <span class="mobile-input-err-label"><ng-container [ngTemplateOutlet]="templateDef?.errLabelDef?.template || defaultErrorTemplate" [ngTemplateOutletContext]="TemplateVariables"></ng-container></span>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Unknow Setting -->
+        <ng-container *ngSwitchDefault>
+            <div class="unknow-box">
+                Unknow input type <b>【{{ i.type }}】</b>.
+            </div>
+        </ng-container>
+
+    </ng-container>
+
+</ng-container>
+
+<ng-template #defaultLabelTemplate let-config="config">{{ config.label }}</ng-template>
+<ng-template #defaultHintTemplate let-config="config">{{ config.hint }}</ng-template>
+<ng-template #defaultErrorTemplate let-config="config">{{ input?.errors | CfgFormErrorMessage }}</ng-template>

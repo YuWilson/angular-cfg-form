@@ -1,18 +1,24 @@
+import { InjectionToken } from "@angular/core";
 import { FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 
 /**
  * Form Settings
  */
+export const FORM_DEFAULT_STYLE = new InjectionToken<FormInputStyles>('form-style-token', {
+    factory: () => 'classic'
+});
+
 export type FormInputStyles =
     | 'classic'
     | 'float'
     | 'fill'
-    | 'outline';
+    | 'outline'
+    | 'mobile';
 
 export class CfgForm {
 
     // Define input type
-    style: FormInputStyles;
+    style?: FormInputStyles;
 
     // FormGroup validators.
     validators: Array<ValidatorFn>;
@@ -45,7 +51,7 @@ export class CfgForm {
         colMinWidth?: string,
     })
     {
-        this.style = config.style || 'classic';
+        this.style = config.style;
         this.validators = config.validators || [];
         this.inputs = config.inputs;
         this.cols = config.cols || 1;
@@ -465,9 +471,29 @@ export class FileInput extends BaseInput
 }
 
 // Input by custom templateRef
-export class CustomInput extends BaseInput {
+export class CustomInput extends BaseInput
+{
     constructor(config: {} & BASE_OPTIONS)
     {
         super('custom', config);
     }
 }
+
+/**
+ * Error messages
+ */
+export interface FormErrorMessageRules
+{
+    [key: string]: (e: any) => string;
+}
+export const DEFAULT_FORM_ERROR_MESSAGES: FormErrorMessageRules =
+{
+    'required': () => '這個欄位為必填項目',
+    'max': (e) => '最大值為 ' + e.max,
+    'min': (e) => '最小值為 ' + e.min,
+    'maxlength': (e) => '長度不得超過 ' + e.maxlength,
+    'minlength': (e) => '長度最少為 ' + e.minlength,
+}
+export const FORM_ERROR_MESSAGES = new InjectionToken<FormErrorMessageRules>('form-error-messages-token', {
+    factory: () => DEFAULT_FORM_ERROR_MESSAGES
+});

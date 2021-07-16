@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 import { CfgFormFieldDefDirective } from '../directives/cfg-form-input-template.directive';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnInit, TemplateRef, ViewChildren } from '@angular/core';
-import { CfgForm, FormInput } from '../cfg-form.type';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Inject, Input, OnInit, TemplateRef, ViewChildren } from '@angular/core';
+import { CfgForm, FormInput, FormInputStyles, FORM_DEFAULT_STYLE } from '../cfg-form.type';
 import { QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -26,13 +26,24 @@ export class CfgFormComponent implements OnInit {
         }
     }
 
+    @HostBinding('class') get getClassName() {
+        return {
+            'mobile-style': this.CfgForm.style == 'mobile',
+        }
+    }
+
     private subscriptions: Subscription[] = [];
 
     constructor(
+        @Inject(FORM_DEFAULT_STYLE) private defaultStyle: FormInputStyles,
         private changeDet: ChangeDetectorRef,
     ) { }
 
     ngOnInit() {
+        if( this.CfgForm && !this.CfgForm.style )
+        {
+            this.CfgForm.style = this.defaultStyle;
+        }
         this.subscriptions.push(
             this.CfgForm.form.valueChanges.subscribe(() => this.changeDet.markForCheck())
         );
@@ -97,7 +108,9 @@ export class CfgFormComponent implements OnInit {
 
     getCol(i: FormInput)
     {
-        return Math.ceil(Math.min(this.CfgForm.cols, i.cols) / this.CfgForm.cols  * 12);
+        if( this.CfgForm.style == 'mobile' ) { return 12; } // force full width
+
+        return Math.ceil(Math.min(this.CfgForm.cols, i.cols) / this.CfgForm.cols * 12);
     }
 
 }

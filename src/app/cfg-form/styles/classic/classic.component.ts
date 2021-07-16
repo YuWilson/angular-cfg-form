@@ -51,16 +51,23 @@ export class ClassicComponent implements OnInit {
     handleCheckboxChange(value: unknown, e: MatCheckboxChange)
     {
         const selected = this._checkbox_selected.find( v => v == value );
-        if( e.checked ) {
-            if( !selected ) {
+        if( e.checked )
+        {
+            if( !selected )
+            {
                 this._checkbox_selected.push( value );
             }
-        } else {
-            if( selected ) {
+        }
+        else
+        {
+            if( selected )
+            {
                 this._checkbox_selected = this._checkbox_selected.filter( v => v != value );
             }
         }
 
+        this.input?.markAsDirty();
+        this.input?.markAsTouched();
         this.input?.patchValue( this._checkbox_selected );
     }
 
@@ -84,6 +91,9 @@ export class ClassicComponent implements OnInit {
 
         let fname = files[0]?.name || '';
         if( files.length > 1 ) { fname += `(+${files.length - 1} items)`; }
+
+        this.input?.markAsTouched();
+        this.input?.markAsDirty();
         this.input?.patchValue(fname);
     }
 
