@@ -65,8 +65,8 @@ export class CfgForm {
     {
         const form_controls: any = {};
         this.inputs.forEach((i, index) => {
-
-            const fc = new FormControl(i.defaultValue != undefined ? i.defaultValue : '', i.validators ? i.validators : []);
+            console.log(i)
+            const fc = new FormControl(i.defaultValue !== undefined ? i.defaultValue : '', i.validators ? i.validators : []);
             if( i.disabled != undefined || i.readonly != undefined ) {
                 if( i.disabled != undefined && i.disabled || i.readonly != undefined && i.readonly ) {
                     fc.disable();
@@ -195,6 +195,7 @@ interface BASE_OPTIONS {
     disabled?: boolean,
     cols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
     disableAutoScale?: boolean,
+    errorMessages?: FormErrorMessageRules,
 }
 // Input setting base class
 export class BaseInput
@@ -233,6 +234,9 @@ export class BaseInput
     // Disable auto scale width
     disableAutoScale: boolean;
 
+    // Custom Error Messages
+    errorMessages: FormErrorMessageRules | null;
+
     constructor(type: FormInputType, config: {} & BASE_OPTIONS)
     {
         this.type = type;
@@ -240,12 +244,13 @@ export class BaseInput
         this.label = config.label;
         this.validators = config.validators || [];
         this.required = this.validators.indexOf( Validators.required ) >= 0;
-        this.defaultValue = config.defaultValue || null;
+        this.defaultValue = config.defaultValue != undefined ? config.defaultValue : null;
         this.disabled = config.disabled || false;
         this.readonly = config.readonly || false;
         this.hint = config.hint || '';
         this.cols = config.cols || 1;
         this.disableAutoScale = config.disableAutoScale || false;
+        this.errorMessages = config.errorMessages || null;
     }
 
 }
@@ -488,11 +493,15 @@ export interface FormErrorMessageRules
 }
 export const DEFAULT_FORM_ERROR_MESSAGES: FormErrorMessageRules =
 {
-    'required': () => '這個欄位為必填項目',
-    'max': (e) => '最大值為 ' + e.max,
-    'min': (e) => '最小值為 ' + e.min,
-    'maxlength': (e) => '長度不得超過 ' + e.maxlength,
-    'minlength': (e) => '長度最少為 ' + e.minlength,
+    required: () => '這個欄位為必填項目',
+    max: (e) => '最大值為 ' + e.max,
+    min: (e) => '最小值為 ' + e.min,
+    maxlength: (e) => '長度不得超過 ' + e.maxlength,
+    minlength: (e) => '長度最少為 ' + e.minlength,
+    email: () => `錯誤的email格式`,
+    pattern: () => `格是錯誤`,
+    passwordValidator: () => `錯誤的密碼格式`,
+    jsonValidator: () => `這不是個正確的json格式`,
 }
 export const FORM_ERROR_MESSAGES = new InjectionToken<FormErrorMessageRules>('form-error-messages-token', {
     factory: () => DEFAULT_FORM_ERROR_MESSAGES

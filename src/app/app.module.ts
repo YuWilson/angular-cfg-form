@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FORM_DEFAULT_STYLE } from './cfg-form/cfg-form.type';
+import { DEFAULT_FORM_ERROR_MESSAGES, FORM_DEFAULT_STYLE, FORM_ERROR_MESSAGES, FormErrorMessageRules } from './cfg-form/cfg-form.type';
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 
 @NgModule({
@@ -33,6 +33,13 @@ import { MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
                 },
             }
         },
+        {
+            provide: FORM_ERROR_MESSAGES,
+            useValue: {
+                ...DEFAULT_FORM_ERROR_MESSAGES,
+                test12345: () => '數值必須為12345'
+            } as FormErrorMessageRules
+        }
     ],
     bootstrap: [AppComponent]
 })
